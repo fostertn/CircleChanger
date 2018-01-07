@@ -4,8 +4,8 @@ A problem in which to practice:
   -- using SEQUENCES
 
 Authors: Valerie Galluzzi, David Mutchler, Dave Fisher, Amanda Stouder,
-         their colleagues and PUT_YOUR_NAME_HERE.
-"""  # TODO: 1. PUT YOUR NAME IN THE ABOVE LINE.
+         their colleagues and Tyler Foster.
+"""  # DONE: 1. PUT YOUR NAME IN THE ABOVE LINE.
 
 import rosegraphics as rg
 import random
@@ -54,6 +54,10 @@ class CircleChanger(object):
      """
 
     def __init__(self, x, y, radius, fill_color, colors):
+        self.circle = rg.Circle(rg.Point(x, y), radius)
+        self.circle.fill_color = fill_color
+        self.colors = colors
+
         """
         What comes in:
           -- self
@@ -92,7 +96,7 @@ class CircleChanger(object):
         # --------------------------------------------------------------
 
         ################################################################
-        # TODO: 2.
+        # DONE: 2.
         #   First, READ the doc-string (specification) above.
         #   Second, READ the   run_test_init   function (below).
         #   Third, implement and test this method.
@@ -103,6 +107,7 @@ class CircleChanger(object):
         ################################################################
 
     def __repr__(self):
+
         """
         What comes in:
           -- self
@@ -178,6 +183,10 @@ class CircleChanger(object):
         m1_tests.draw(self, message)
 
     def get_distance_from(self, point):
+        distance = rg.Point.get_distance_from(self.circle.center, point)
+
+        return distance
+
         """
         What comes in:
           -- self
@@ -192,7 +201,7 @@ class CircleChanger(object):
             :type point: rg.Point
         """
         ################################################################
-        # TODO: 3.
+        # DONE: 3.
         #   First, READ the doc-string (specification) above.
         #   Second, READ the   run_test_get_distance_from   function
         #   (below).  Third, implement and test this method.
@@ -203,6 +212,11 @@ class CircleChanger(object):
         ################################################################
 
     def swell_or_shrink_once(self, amount_to_swell_or_shrink):
+        self.circle.radius = self.circle.radius + amount_to_swell_or_shrink
+        self.circle.outline_thickness = random.randrange[3, 15]
+        self.circle.fill_color = random.choice[self.colors]
+        if self.circle.radius < 1:
+            self.circle.radius = 1
         """
         What comes in:
           -- self
@@ -237,7 +251,7 @@ class CircleChanger(object):
             :type amount_to_swell_or_shrink: int
         """
         ################################################################
-        # TODO: 4.
+        # DONE: 4.
         #   First, READ the doc-string (specification) above.
         #   Second, READ the   run_test_swell_or_shrink_once   function
         #   (below).  Third, implement and test this method.
