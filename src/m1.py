@@ -105,6 +105,16 @@ class CircleChanger(object):
         # the SPECIFICATION of the method.  That is why you read the
         # TEST function before implementing the method that it tests.
         ################################################################
+        self.radius = radius
+
+        self.distance = 0
+
+        self.circle = rg.Circle(rg.Point(x, y), radius)
+        self.circle.fill_color = fill_color
+        self.initial_fill_color = fill_color
+
+        self.color_change_number = 0
+        self.colors = colors
 
     def __repr__(self):
 
@@ -213,8 +223,8 @@ class CircleChanger(object):
 
     def swell_or_shrink_once(self, amount_to_swell_or_shrink):
         self.circle.radius = self.circle.radius + amount_to_swell_or_shrink
-        self.circle.outline_thickness = random.randrange[3, 15]
-        self.circle.fill_color = random.choice[self.colors]
+        self.circle.outline_thickness = random.randrange(3, 15)
+        self.circle.fill_color = self.colors[random.randrange(len(self.colors))]
         if self.circle.radius < 1:
             self.circle.radius = 1
         """
@@ -283,6 +293,13 @@ class CircleChanger(object):
     def swell_or_shrink_repeatedly(self,
                                    amount_to_swell_or_shrink,
                                    times_to_swell_or_shrink):
+
+        for k in range(times_to_swell_or_shrink):
+            self.circle.radius = self.circle.radius + amount_to_swell_or_shrink
+            self.draw()
+            self.circle.radius = self.circle.radius - amount_to_swell_or_shrink
+            self.draw()
+
         """
         What comes in:
           -- self
@@ -333,13 +350,14 @@ class CircleChanger(object):
             :type times_to_swell_or_shrink:  int
         """
         ################################################################
-        # TODO: 5.
+        # DONE: 5.
         #   First, READ the doc-string (specification) above.
         #   Second, READ the  run_test_swell_or_shrink_repeatedly  function
         #   (below).  Third, implement and test this method.
         ################################################################
 
     def swallow(self, other_circle_changer):
+
         """
         What comes in:
           -- self
@@ -377,6 +395,7 @@ class CircleChanger(object):
         ################################################################
 
     def change_color(self, index_of_color):
+        self.circle.fill_color = self.colors[index_of_color]
         """
         What comes in:
           -- self
@@ -396,13 +415,15 @@ class CircleChanger(object):
             :type index_of_color: int
         """
         ################################################################
-        # TODO: 7.
+        # DONE: 7.
         #   First, READ the doc-string (specification) above.
         #   Second, READ the   run_test_change_color   function (below).
         #   Third, implement and test this method.
         ################################################################
 
     def change_to_original_color(self):
+        self.circle.fill_color = self.initial_fill_color
+
         """
         What comes in:
           -- self
@@ -413,13 +434,20 @@ class CircleChanger(object):
                was constructed.
         """
         ################################################################
-        # TODO: 8.
+        # DONE: 8.
         #   First, READ the doc-string (specification) above.
         #   Second, READ the   run_test_change_to_original_color   function
         #   (below).  Third, implement and test this method.
         ################################################################
 
     def change_to_next_color_in_tuple(self):
+
+        self.circle.fill_color = self.colors[self.change_to_original_color]
+        self.color_change_number = self.color_change_number + 1
+        if self.color_change_number > len(self.colors):
+            self.color_change_number = 0
+
+
         """
         What comes in:
           -- self
@@ -452,7 +480,7 @@ class CircleChanger(object):
         fill color have no effect on or interaction with this method.
         """
         ################################################################
-        # TODO: 9.
+        # DONE: 9.
         #   First, READ the doc-string (specification) above.
         #   Second, READ the   run_test_change_to_next_color_in_tuple
         #   function (below).  Third, implement and test this method.
